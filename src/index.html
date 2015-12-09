@@ -4,14 +4,53 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" href="style.css">
-  <script src="lib.js"/>
+  <script src="lib.js"></script>
 </head>
 <body>
-<div class="container">
+<div id="container" class="container">
   <div class="stage">
-    <div class="one"></div>
-    <div class="two"></div>
+    <div class="one">1</div>
+    <div class="two">2</div>
   </div>
 </div>
+<div class="btns">
+  <button>Reset</button>
+  <div>
+    <h4>Slide</h4>
+    <button data-ani="slide-left">left</button>
+    <button data-ani="slide-right">right</button>
+    <button data-ani="slide-up">up</button>
+    <button data-ani="slide-down">down</button>
+  </div>
+  <div>
+    <h4>Push</h4>
+    <button data-ani="push-left">left</button>
+    <button data-ani="push-right">right</button>
+    <button data-ani="push-up">up</button>
+    <button data-ani="push-down">down</button>
+  </div>
+  <div>
+    <h4>Flip</h4>
+    <button data-ani="flip-left">left</button>
+    <button data-ani="flip-right">right</button>
+    <button data-ani="flip-up">up</button>
+    <button data-ani="flip-down">down</button>
+  </div>
+</div>
+<script>
+  var btns = document.getElementsByTagName('button');
+  var container = document.getElementById("container");
+  function onClick(e) {
+    var ani = e.target.dataset.ani;
+    container.className = "container";
+    if (ani) {
+      var arr = ani.split('-');
+      container.className = "container " + arr[0] + " " + ani;
+    }
+  }
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', onClick);
+  }
+</script>
 </body>
 </html>

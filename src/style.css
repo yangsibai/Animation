@@ -4,11 +4,26 @@ body {
   height: 100%;
 }
 .container {
-  perspective: 800px;
-  transform-style: preserve-3d;
-  position: relative;
   width: 200px;
   height: 300px;
+  margin: auto;
+}
+.container .stage .one,
+.container .stage .two {
+  font-size: 100px;
+  text-align: center;
+  line-height: 300px;
+  color: #fff;
+}
+.btns {
+  margin: 30px;
+}
+.btns button {
+  width: 70px;
+  height: 30px;
+}
+.container {
+  position: relative;
 }
 .container .stage {
   position: absolute;
@@ -27,7 +42,94 @@ body {
 }
 .container .stage .one {
   background-color: red;
+  z-index: 1;
 }
 .container .stage .two {
   background-color: blue;
+  z-index: 0;
+}
+.container.slide .stage .one,
+.container.slide .stage .two {
+  transition: transform .5s;
+}
+.container.slide .stage .two {
+  z-index: 2;
+}
+.container.slide-left .stage .two {
+  left: 100%;
+  transform: translateX(-100%);
+}
+.container.slide-right .stage .two {
+  left: -100%;
+  transform: translateX(100%);
+}
+.container.slide-up .stage .two {
+  top: 100%;
+  transform: translateY(-100%);
+}
+.container.slide-down .stage .two {
+  top: -100%;
+  transform: translateY(100%);
+}
+.container.push .stage {
+  transition: transform .5s;
+}
+.container.push-left .stage {
+  transform: translateX(-100%);
+}
+.container.push-left .stage .two {
+  left: 100%;
+}
+.container.push-right .stage {
+  transform: translateX(100%);
+}
+.container.push-right .stage .two {
+  left: -100%;
+}
+.container.push-up .stage {
+  transform: translateY(-100%);
+}
+.container.push-up .stage .two {
+  top: 100%;
+}
+.container.push-down .stage {
+  transform: translateY(100%);
+}
+.container.push-down .stage .two {
+  top: -100%;
+}
+.container.flip {
+  perspective: 800px;
+}
+.container.flip .stage {
+  transform-style: preserve-3d;
+  transition: transform .5s;
+}
+.container.flip .one,
+.container.flip .two {
+  backface-visibility: hidden;
+}
+.container.flip-left .stage {
+  transform: rotateY(-180deg);
+}
+.container.flip-left .two {
+  transform: rotateY(180deg);
+}
+.container.flip-right .stage {
+  transform: rotateY(180deg);
+}
+.container.flip-right .two {
+  transform: rotateY(180deg);
+}
+.container.flip-up .stage {
+  transform: rotateX(180deg);
+}
+.container.flip-up .two {
+  transform: rotateX(180deg);
+}
+.container.flip-down .stage {
+  transform: rotateX(-180deg);
+}
+.container.flip-down .two {
+  transform: rotateX(180deg);
 }

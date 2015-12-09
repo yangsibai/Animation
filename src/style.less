@@ -4,11 +4,29 @@ html, body {
 }
 
 .container {
-    perspective: 800px;
-    transform-style: preserve-3d;
-    position: relative;
     width: 200px;
     height: 300px;
+    margin: auto;
+    .stage {
+        .one, .two {
+            font-size: 100px;
+            text-align: center;
+            line-height: 300px;
+            color: #fff;
+        }
+    }
+}
+
+.btns {
+    margin: 30px;
+    button {
+        width: 70px;
+        height: 30px;
+    }
+}
+
+.container {
+    position: relative;
     .stage {
         position: absolute;
         width: 100%;
@@ -24,9 +42,132 @@ html, body {
         }
         .one {
             background-color: red;
+            z-index: 1;
         }
         .two {
             background-color: blue;
+            z-index: 0;
+        }
+    }
+    &.slide {
+        .stage {
+            .one, .two {
+                transition: transform .5s;
+            }
+            .two {
+                z-index: 2;
+            }
+        }
+    }
+    &.slide-left {
+        .stage {
+            .two {
+                left: 100%;
+                transform: translateX(-100%);
+            }
+        }
+    }
+    &.slide-right {
+        .stage {
+            .two {
+                left: -100%;
+                transform: translateX(100%);
+            }
+        }
+    }
+    &.slide-up {
+        .stage {
+            .two {
+                top: 100%;
+                transform: translateY(-100%);
+            }
+        }
+    }
+    &.slide-down {
+        .stage {
+            .two {
+                top: -100%;
+                transform: translateY(100%);
+            }
+        }
+    }
+    &.push {
+        .stage {
+            transition: transform .5s;
+        }
+    }
+    &.push-left {
+        .stage {
+            transform: translateX(-100%);
+            .two {
+                left: 100%;
+            }
+        }
+    }
+    &.push-right {
+        .stage {
+            transform: translateX(100%);
+            .two {
+                left: -100%;
+            }
+        }
+    }
+    &.push-up {
+        .stage {
+            transform: translateY(-100%);
+            .two {
+                top: 100%;
+            }
+        }
+    }
+    &.push-down {
+        .stage {
+            transform: translateY(100%);
+            .two {
+                top: -100%;
+            }
+        }
+    }
+    &.flip {
+        perspective: 800px;
+        .stage {
+            transform-style: preserve-3d;
+            transition: transform .5s;
+        }
+        .one, .two {
+            backface-visibility: hidden;
+        }
+    }
+    &.flip-left {
+        .stage {
+            transform: rotateY(-180deg)
+        }
+        .two {
+            transform: rotateY(180deg);
+        }
+    }
+    &.flip-right {
+        .stage {
+            transform: rotateY(180deg);
+        }
+        .two {
+            transform: rotateY(180deg);
+        }
+    }
+    &.flip-up {
+        .stage {
+            transform: rotateX(180deg);
+        }
+        .two {
+            transform: rotateX(180deg);
+        }
+    }
+    &.flip-down {
+        .stage {
+            transform: rotateX(-180deg);
+        }
+        .two {
+            transform: rotateX(180deg);
         }
     }
 }
