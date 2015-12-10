@@ -1,29 +1,6 @@
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
-.container {
-  width: 200px;
-  height: 300px;
-  margin: auto;
-}
-.container .stage .one,
-.container .stage .two {
-  font-size: 100px;
-  text-align: center;
-  line-height: 300px;
-  color: #fff;
-}
-.btns {
-  margin: 30px;
-}
-.btns button {
-  width: 70px;
-  height: 30px;
-}
 .container {
   position: relative;
+  overflow: hidden;
 }
 .container .stage {
   position: absolute;
@@ -41,74 +18,80 @@ body {
   height: 100%;
 }
 .container .stage .one {
-  background-color: red;
   z-index: 1;
 }
 .container .stage .two {
-  background-color: blue;
   z-index: 0;
 }
 .container.slide .stage .one,
 .container.slide .stage .two {
-  transition: -webkit-transform .5s;
-  transition: transform .5s;
-  transition: transform .5s, -webkit-transform .5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
 }
 .container.slide .stage .two {
   z-index: 2;
 }
 .container.slide-left .stage .two {
   left: 100%;
+}
+.container.slide-left.start .two {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
 }
 .container.slide-right .stage .two {
   left: -100%;
+}
+.container.slide-right.start .two {
   -webkit-transform: translateX(100%);
           transform: translateX(100%);
 }
 .container.slide-up .stage .two {
   top: 100%;
+}
+.container.slide-up.start .two {
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
 }
 .container.slide-down .stage .two {
   top: -100%;
+}
+.container.slide-down.start .two {
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
 }
 .container.push .stage {
-  transition: -webkit-transform .5s;
-  transition: transform .5s;
-  transition: transform .5s, -webkit-transform .5s;
-}
-.container.push-left .stage {
-  -webkit-transform: translateX(-100%);
-          transform: translateX(-100%);
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
 }
 .container.push-left .stage .two {
   left: 100%;
 }
-.container.push-right .stage {
-  -webkit-transform: translateX(100%);
-          transform: translateX(100%);
+.container.push-left.start .stage {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
 }
 .container.push-right .stage .two {
   left: -100%;
 }
-.container.push-up .stage {
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+.container.push-right.start .stage {
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
 }
 .container.push-up .stage .two {
   top: 100%;
 }
-.container.push-down .stage {
-  -webkit-transform: translateY(100%);
-          transform: translateY(100%);
+.container.push-up.start .stage {
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
 }
 .container.push-down .stage .two {
   top: -100%;
+}
+.container.push-down.start .stage {
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
 }
 .container.flip {
   -webkit-perspective: 800px;
@@ -117,46 +100,78 @@ body {
 .container.flip .stage {
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
-  transition: -webkit-transform .5s;
-  transition: transform .5s;
-  transition: transform .5s, -webkit-transform .5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
 }
 .container.flip .one,
 .container.flip .two {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
 }
-.container.flip-left .stage {
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
-}
 .container.flip-left .two {
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
 }
-.container.flip-right .stage {
-  -webkit-transform: rotateY(180deg);
-          transform: rotateY(180deg);
+.container.flip-left.start .stage {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
 }
 .container.flip-right .two {
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
 }
-.container.flip-up .stage {
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+.container.flip-right.start .stage {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
 }
 .container.flip-up .two {
   -webkit-transform: rotateX(180deg);
           transform: rotateX(180deg);
 }
-.container.flip-down .stage {
-  -webkit-transform: rotateX(-180deg);
-          transform: rotateX(-180deg);
+.container.flip-up.start .stage {
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
 }
 .container.flip-down .two {
   -webkit-transform: rotateX(180deg);
           transform: rotateX(180deg);
 }
+.container.flip-down.start .stage {
+  -webkit-transform: rotateX(-180deg);
+          transform: rotateX(-180deg);
+}
+.container.fade .stage .one,
+.container.fade .stage .two {
+  transition: opacity 0.5s;
+}
+.container.fade .stage .one {
+  opacity: 1;
+}
+.container.fade .stage .two {
+  opacity: 0;
+}
+.container.fade.start .one {
+  opacity: 0;
+}
+.container.fade.start .two {
+  opacity: 1;
+}
+.container.none .stage .one,
+.container.none .stage .two {
+  transition: opacity 0.5s;
+}
+.container.none .stage .one {
+  opacity: 1;
+}
+.container.none .stage .two {
+  opacity: 0;
+}
+.container.none.start .one {
+  opacity: 0;
+}
+.container.none.start .two {
+  opacity: 1;
+}
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=animation.css.map */

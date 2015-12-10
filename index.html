@@ -2,15 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Animation Test</title>
+  <link rel="stylesheet" href="animation.css">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      width: 200px;
+      height: 300px;
+      margin: auto;
+    }
+
+    .container .stage .one,
+    .container .stage .two {
+      font-size: 100px;
+      text-align: center;
+      line-height: 300px;
+      color: #fff;
+    }
+
+    .container .stage .one {
+      background-color: #f00;
+    }
+
+    .container .stage .two {
+      background-color: #00f;
+    }
+
+    .btns {
+      margin: 30px;
+    }
+
+    .btns button {
+      width: 70px;
+      height: 30px;
+    }
+  </style>
   <script src="lib.js"></script>
 </head>
 <body>
 <div id="container" class="container">
   <div class="stage">
-    <div class="one">1</div>
-    <div class="two">2</div>
+    <div id="one" class="one">1</div>
+    <div id="two" class="two">2</div>
   </div>
 </div>
 <div class="btns">
@@ -36,16 +74,35 @@
     <button data-ani="flip-up">up</button>
     <button data-ani="flip-down">down</button>
   </div>
+  <div>
+    <h4>Special</h4>
+    <button data-ani="none">None</button>
+    <button data-ani="fade">fade</button>
+  </div>
 </div>
 <script>
   var btns = document.getElementsByTagName('button');
   var container = document.getElementById("container");
+  var one = document.getElementById("one");
+  var two = document.getElementById("two");
+  var animation = new Animation({
+    container: container,
+    one: one,
+    two: two,
+    onStart: function () {
+
+    },
+    onEnd: function () {
+//      this.reset();
+      console.log('it is end');
+    }
+  });
   function onClick(e) {
     var ani = e.target.dataset.ani;
-    container.className = "container";
     if (ani) {
-      var arr = ani.split('-');
-      container.className = "container " + arr[0] + " " + ani;
+      animation.start(ani);
+    } else {
+      animation.reset();
     }
   }
   for (var i = 0; i < btns.length; i++) {

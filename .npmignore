@@ -1,0 +1,5 @@
+node_modules/
+src/
+.gitignore
+gulpfile.js
+npm-debug.log
