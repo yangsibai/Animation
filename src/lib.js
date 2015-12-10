@@ -31,10 +31,6 @@
             two: this.two.className
         };
         this.isAnimating = false;
-        //this.transitionEndListener = function () {
-        //    this.container.removeEventListener(transitionEndEventName(), this.transitionEndListener);
-        //    this.onEnd();
-        //}
         this.one.className += ' one';
         this.two.className += ' two';
         this.container.addEventListener(transitionEndEventName(), function () {
@@ -71,30 +67,6 @@
         this.one.className = this.originalClassNames.one;
         this.two.className = this.originalClassNames.two;
     };
-
-    function animate(containerEl, oneEl, twoEl, animationName, onEnd) {
-        if (!animationName || animationName === 'none') {
-            return onEnd();
-        }
-        var className = animationName;
-        var arr = animationName.split('-');
-        if (arr.length > 1) {
-            className += " " + arr[0];
-        }
-        var transitionEnd = transitionEndEventName();
-        var containerClassName = containerEl.className;
-        var oneClassName = oneEl.className;
-        var twoClassName = twoEl.className;
-        containerEl.addEventListener(transitionEnd, function () {
-            containerEl.className = containerClassName;
-            oneEl.className = oneClassName;
-            twoEl.className = twoClassName;
-            onEnd()
-        }, false);
-        containerEl.className += " " + className;
-        oneEl.className += " one";
-        twoEl.className += " two";
-    }
 
     window.Animation = Animation;
 }(window));

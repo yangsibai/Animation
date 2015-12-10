@@ -1,4 +1,4 @@
-@animation-time: 3s;
+@animation-time: .5s;
 .container {
     position: relative;
     overflow: hidden;
@@ -136,35 +136,35 @@
         }
     }
     &.flip-left {
-        .stage {
-            transform: rotateY(-180deg)
-        }
         .two {
             transform: rotateY(180deg);
+        }
+        &.start .stage {
+            transform: rotateY(-180deg)
         }
     }
     &.flip-right {
-        .stage {
+        .two {
             transform: rotateY(180deg);
         }
-        .two {
+        &.start .stage {
             transform: rotateY(180deg);
         }
     }
     &.flip-up {
-        .stage {
+        .two {
             transform: rotateX(180deg);
         }
-        .two {
+        &.start .stage {
             transform: rotateX(180deg);
         }
     }
     &.flip-down {
-        .stage {
-            transform: rotateX(-180deg);
-        }
         .two {
             transform: rotateX(180deg);
+        }
+        &.start .stage {
+            transform: rotateX(-180deg);
         }
     }
     &.fade {
@@ -194,10 +194,10 @@
                 transition: opacity @animation-time;
             }
             .one {
-                opacity: .1;
+                opacity: 1;
             }
             .two {
-                opacity: .9;
+                opacity: 0;
             }
         }
         &.start {

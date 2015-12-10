@@ -25,7 +25,7 @@
 }
 .container.slide .stage .one,
 .container.slide .stage .two {
-  transition: transform 3s;
+  transition: transform 0.5s;
 }
 .container.slide .stage .two {
   z-index: 2;
@@ -55,7 +55,7 @@
   transform: translateY(100%);
 }
 .container.push .stage {
-  transition: transform 3s;
+  transition: transform 0.5s;
 }
 .container.push-left .stage .two {
   left: 100%;
@@ -86,39 +86,39 @@
 }
 .container.flip .stage {
   transform-style: preserve-3d;
-  transition: transform 3s;
+  transition: transform 0.5s;
 }
 .container.flip .one,
 .container.flip .two {
   backface-visibility: hidden;
 }
-.container.flip-left .stage {
-  transform: rotateY(-180deg);
-}
 .container.flip-left .two {
   transform: rotateY(180deg);
 }
-.container.flip-right .stage {
-  transform: rotateY(180deg);
+.container.flip-left.start .stage {
+  transform: rotateY(-180deg);
 }
 .container.flip-right .two {
   transform: rotateY(180deg);
 }
-.container.flip-up .stage {
-  transform: rotateX(180deg);
+.container.flip-right.start .stage {
+  transform: rotateY(180deg);
 }
 .container.flip-up .two {
   transform: rotateX(180deg);
 }
-.container.flip-down .stage {
-  transform: rotateX(-180deg);
+.container.flip-up.start .stage {
+  transform: rotateX(180deg);
 }
 .container.flip-down .two {
   transform: rotateX(180deg);
 }
+.container.flip-down.start .stage {
+  transform: rotateX(-180deg);
+}
 .container.fade .stage .one,
 .container.fade .stage .two {
-  transition: opacity 3s;
+  transition: opacity 0.5s;
 }
 .container.fade .stage .one {
   opacity: 1;
@@ -134,13 +134,13 @@
 }
 .container.none .stage .one,
 .container.none .stage .two {
-  transition: opacity 3s;
+  transition: opacity 0.5s;
 }
 .container.none .stage .one {
-  opacity: .1;
+  opacity: 1;
 }
 .container.none .stage .two {
-  opacity: .9;
+  opacity: 0;
 }
 .container.none.start .one {
   opacity: 0;
