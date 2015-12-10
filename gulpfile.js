@@ -38,7 +38,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('publish', ['clean-scripts', 'css'], function () {
-    gulp.src([
+    return gulp.src([
         './src/lib.js'
     ], {
         base: 'src'
