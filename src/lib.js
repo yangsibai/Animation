@@ -74,5 +74,9 @@
         this.container.removeEventListener(transitionEndEventName(), this.onTransitionEnd);
     };
 
-    window.Animation = Animation;
+    if (require && module.exports) {
+        module.exports = Animation;
+    } else {
+        window.Animation = Animation;
+    }
 }(window));
