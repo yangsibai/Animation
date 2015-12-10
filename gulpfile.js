@@ -13,7 +13,7 @@ gulp.task('default', function () {
         base: 'src'
     }).pipe(gulp.dest('dist'));
 
-    gulp.src('./src/style.css')
+    gulp.src('./src/animation.css')
         .pipe(sourcemaps.init())
         .pipe(sourcemaps.init())
         .pipe(postcss([autoprefixer({browsers: ['last 2 versions']})]))
@@ -32,9 +32,9 @@ gulp.task('default', function () {
         }).pipe(gulp.dest('dist'));
     });
     gulp.watch([
-        'src/style.css'
+        'src/animation.css'
     ], function () {
-        gulp.src('./src/style.css')
+        gulp.src('./src/animation.css')
             .pipe(sourcemaps.init())
             .pipe(sourcemaps.init())
             .pipe(postcss([autoprefixer({browsers: ['last 2 versions']})]))
