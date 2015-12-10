@@ -9,8 +9,8 @@
 <body>
 <div id="container" class="container">
   <div class="stage">
-    <div class="one">1</div>
-    <div class="two">2</div>
+    <div id="one" class="one">1</div>
+    <div id="two" class="two">2</div>
   </div>
 </div>
 <div class="btns">
@@ -40,12 +40,16 @@
 <script>
   var btns = document.getElementsByTagName('button');
   var container = document.getElementById("container");
+  var one = document.getElementById("one");
+  var two = document.getElementById("two");
   function onClick(e) {
     var ani = e.target.dataset.ani;
-    container.className = "container";
     if (ani) {
-      var arr = ani.split('-');
-      container.className = "container " + arr[0] + " " + ani;
+      animation.animate(container, one, two, ani, function () {
+        console.log('end');
+      });
+    } else {
+      location.reload();
     }
   }
   for (var i = 0; i < btns.length; i++) {
