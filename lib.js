@@ -1,4 +1,4 @@
-;(function () {
+;(function (global) {
     function transitionEndEventName() {
         var i,
             undefined,
@@ -79,4 +79,4 @@
     } else {
         global.Animation = Animation;
     }
-}(global));
+}(this));
