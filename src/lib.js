@@ -33,10 +33,11 @@
         this.isAnimating = false;
         this.one.className += ' one';
         this.two.className += ' two';
-        this.container.addEventListener(transitionEndEventName(), function () {
+        this.onTransitionEnd = function () {
             this.isAnimating = false;
             this.onEnd();
-        }.bind(this), false);
+        }.bind(this);
+        this.container.addEventListener(transitionEndEventName(), this.onTransitionEnd, false);
     }
 
     Animation.prototype.start = function (animationName) {
@@ -56,16 +57,21 @@
         }
         this.container.className += ' ' + className;
         this.isAnimating = true;
-        setTimeout(function () {
+        window.requestAnimationFrame(function () {
             this.onStart();
             this.container.className += ' start';
-        }.bind(this), 1);
+        }.bind(this));
     };
 
     Animation.prototype.reset = function () {
         this.container.className = this.originalClassNames.container;
         this.one.className = this.originalClassNames.one;
         this.two.className = this.originalClassNames.two;
+    };
+
+    Animation.prototype.remove = function () {
+        this.reset();
+        this.container.removeEventListener(transitionEndEventName(), this.onTransitionEnd);
     };
 
     window.Animation = Animation;
