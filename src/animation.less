@@ -1,3 +1,4 @@
+@animation-time: 3s;
 .container {
     position: relative;
     overflow: hidden;
@@ -15,18 +16,16 @@
             height: 100%;
         }
         .one {
-            background-color: red;
             z-index: 1;
         }
         .two {
-            background-color: blue;
             z-index: 0;
         }
     }
     &.slide {
         .stage {
             .one, .two {
-                transition: transform .5s;
+                transition: transform @animation-time;
             }
             .two {
                 z-index: 2;
@@ -37,6 +36,10 @@
         .stage {
             .two {
                 left: 100%;
+            }
+        }
+        &.start {
+            .two {
                 transform: translateX(-100%);
             }
         }
@@ -45,6 +48,10 @@
         .stage {
             .two {
                 left: -100%;
+            }
+        }
+        &.start {
+            .two {
                 transform: translateX(100%);
             }
         }
@@ -53,6 +60,10 @@
         .stage {
             .two {
                 top: 100%;
+            }
+        }
+        &.start {
+            .two {
                 transform: translateY(-100%);
             }
         }
@@ -61,52 +72,64 @@
         .stage {
             .two {
                 top: -100%;
+            }
+        }
+        &.start {
+            .two {
                 transform: translateY(100%);
             }
         }
     }
     &.push {
         .stage {
-            transition: transform .5s;
+            transition: transform @animation-time;
         }
     }
     &.push-left {
         .stage {
-            transform: translateX(-100%);
             .two {
                 left: 100%;
             }
         }
+        &.start .stage {
+            transform: translateX(-100%);
+        }
     }
     &.push-right {
         .stage {
-            transform: translateX(100%);
             .two {
                 left: -100%;
             }
         }
+        &.start .stage {
+            transform: translateX(100%);
+        }
     }
     &.push-up {
         .stage {
-            transform: translateY(-100%);
             .two {
                 top: 100%;
             }
         }
+        &.start .stage {
+            transform: translateY(-100%);
+        }
     }
     &.push-down {
         .stage {
-            transform: translateY(100%);
             .two {
                 top: -100%;
             }
+        }
+        &.start .stage {
+            transform: translateY(100%);
         }
     }
     &.flip {
         perspective: 800px;
         .stage {
             transform-style: preserve-3d;
-            transition: transform .5s;
+            transition: transform @animation-time;
         }
         .one, .two {
             backface-visibility: hidden;
@@ -142,6 +165,48 @@
         }
         .two {
             transform: rotateX(180deg);
+        }
+    }
+    &.fade {
+        .stage {
+            .one, .two {
+                transition: opacity @animation-time;
+            }
+            .one {
+                opacity: 1;
+            }
+            .two {
+                opacity: 0;
+            }
+        }
+        &.start {
+            .one {
+                opacity: 0;
+            }
+            .two {
+                opacity: 1;
+            }
+        }
+    }
+    &.none {
+        .stage {
+            .one, .two {
+                transition: opacity @animation-time;
+            }
+            .one {
+                opacity: .1;
+            }
+            .two {
+                opacity: .9;
+            }
+        }
+        &.start {
+            .one {
+                opacity: 0;
+            }
+            .two {
+                opacity: 1;
+            }
         }
     }
 }
