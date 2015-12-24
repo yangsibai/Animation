@@ -1,6 +1,6 @@
 {
   "name": "simple-animation",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "animation",
   "main": "dist/lib.js",
   "scripts": {
