@@ -1,150 +1,150 @@
-.animation-start-container {
+.animation-stage-container {
   position: relative;
   overflow: hidden;
 }
-.animation-start-container .animation-stage {
+.animation-stage-container .stage {
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
 }
-.animation-start-container .animation-stage .animation-card-one,
-.animation-start-container .animation-stage .animation-card-two {
+.animation-stage-container .stage .animation-card-one,
+.animation-stage-container .stage .animation-card-two {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
 }
-.animation-start-container .animation-stage .animation-card-one {
+.animation-stage-container .stage .animation-card-one {
   z-index: 1;
 }
-.animation-start-container .animation-stage .animation-card-two {
+.animation-stage-container .stage .animation-card-two {
   z-index: 0;
 }
-.animation-start-container.slide .stage .animation-card-one,
-.animation-start-container.slide .stage .animation-card-two {
+.animation-stage-container.slide .stage .animation-card-one,
+.animation-stage-container.slide .stage .animation-card-two {
   transition: transform 0.5s;
 }
-.animation-start-container.slide .stage .animation-card-two {
+.animation-stage-container.slide .stage .animation-card-two {
   z-index: 2;
 }
-.animation-start-container.slide-left .stage .animation-card-two {
+.animation-stage-container.slide-left .stage .animation-card-two {
   left: 100%;
 }
-.animation-start-container.slide-left.start .animation-card-two {
+.animation-stage-container.slide-left.start .animation-card-two {
   transform: translateX(-100%);
 }
-.animation-start-container.slide-right .stage .animation-card-two {
+.animation-stage-container.slide-right .stage .animation-card-two {
   left: -100%;
 }
-.animation-start-container.slide-right.start .animation-card-two {
+.animation-stage-container.slide-right.start .animation-card-two {
   transform: translateX(100%);
 }
-.animation-start-container.slide-up .stage .animation-card-two {
+.animation-stage-container.slide-up .stage .animation-card-two {
   top: 100%;
 }
-.animation-start-container.slide-up.start .animation-card-two {
+.animation-stage-container.slide-up.start .animation-card-two {
   transform: translateY(-100%);
 }
-.animation-start-container.slide-down .stage .animation-card-two {
+.animation-stage-container.slide-down .stage .animation-card-two {
   top: -100%;
 }
-.animation-start-container.slide-down.start .animation-card-two {
+.animation-stage-container.slide-down.start .animation-card-two {
   transform: translateY(100%);
 }
-.animation-start-container.push .stage {
+.animation-stage-container.push .stage {
   transition: transform 0.5s;
 }
-.animation-start-container.push-left .stage .animation-card-two {
+.animation-stage-container.push-left .stage .animation-card-two {
   left: 100%;
 }
-.animation-start-container.push-left.start .stage {
+.animation-stage-container.push-left.start .stage {
   transform: translateX(-100%);
 }
-.animation-start-container.push-right .stage .animation-card-two {
+.animation-stage-container.push-right .stage .animation-card-two {
   left: -100%;
 }
-.animation-start-container.push-right.start .stage {
+.animation-stage-container.push-right.start .stage {
   transform: translateX(100%);
 }
-.animation-start-container.push-up .stage .animation-card-two {
+.animation-stage-container.push-up .stage .animation-card-two {
   top: 100%;
 }
-.animation-start-container.push-up.start .stage {
+.animation-stage-container.push-up.start .stage {
   transform: translateY(-100%);
 }
-.animation-start-container.push-down .stage .animation-card-two {
+.animation-stage-container.push-down .stage .animation-card-two {
   top: -100%;
 }
-.animation-start-container.push-down.start .stage {
+.animation-stage-container.push-down.start .stage {
   transform: translateY(100%);
 }
-.animation-start-container.flip {
+.animation-stage-container.flip {
   perspective: 800px;
 }
-.animation-start-container.flip .stage {
+.animation-stage-container.flip .stage {
   transform-style: preserve-3d;
   transition: transform 0.5s;
 }
-.animation-start-container.flip .animation-card-one,
-.animation-start-container.flip .animation-card-two {
+.animation-stage-container.flip .animation-card-one,
+.animation-stage-container.flip .animation-card-two {
   backface-visibility: hidden;
 }
-.animation-start-container.flip-left .animation-card-two {
+.animation-stage-container.flip-left .animation-card-two {
   transform: rotateY(180deg);
 }
-.animation-start-container.flip-left.start .stage {
+.animation-stage-container.flip-left.start .stage {
   transform: rotateY(-180deg);
 }
-.animation-start-container.flip-right .animation-card-two {
+.animation-stage-container.flip-right .animation-card-two {
   transform: rotateY(180deg);
 }
-.animation-start-container.flip-right.start .stage {
+.animation-stage-container.flip-right.start .stage {
   transform: rotateY(180deg);
 }
-.animation-start-container.flip-up .animation-card-two {
+.animation-stage-container.flip-up .animation-card-two {
   transform: rotateX(180deg);
 }
-.animation-start-container.flip-up.start .stage {
+.animation-stage-container.flip-up.start .stage {
   transform: rotateX(180deg);
 }
-.animation-start-container.flip-down .animation-card-two {
+.animation-stage-container.flip-down .animation-card-two {
   transform: rotateX(180deg);
 }
-.animation-start-container.flip-down.start .stage {
+.animation-stage-container.flip-down.start .stage {
   transform: rotateX(-180deg);
 }
-.animation-start-container.fade .stage .animation-card-one,
-.animation-start-container.fade .stage .animation-card-two {
+.animation-stage-container.fade .stage .animation-card-one,
+.animation-stage-container.fade .stage .animation-card-two {
   transition: opacity 0.5s;
 }
-.animation-start-container.fade .stage .animation-card-one {
+.animation-stage-container.fade .stage .animation-card-one {
   opacity: 1;
 }
-.animation-start-container.fade .stage .animation-card-two {
+.animation-stage-container.fade .stage .animation-card-two {
   opacity: 0;
 }
-.animation-start-container.fade.start .animation-card-one {
+.animation-stage-container.fade.start .animation-card-one {
   opacity: 0;
 }
-.animation-start-container.fade.start .animation-card-two {
+.animation-stage-container.fade.start .animation-card-two {
   opacity: 1;
 }
-.animation-start-container.none .stage .animation-card-one,
-.animation-start-container.none .stage .animation-card-two {
+.animation-stage-container.none .stage .animation-card-one,
+.animation-stage-container.none .stage .animation-card-two {
   transition: opacity 0.5s;
 }
-.animation-start-container.none .stage .animation-card-one {
+.animation-stage-container.none .stage .animation-card-one {
   opacity: 1;
 }
-.animation-start-container.none .stage .animation-card-two {
+.animation-stage-container.none .stage .animation-card-two {
   opacity: 0;
 }
-.animation-start-container.none.start .animation-card-one {
+.animation-stage-container.none.start .animation-card-one {
   opacity: 0;
 }
-.animation-start-container.none.start .animation-card-two {
+.animation-stage-container.none.start .animation-card-two {
   opacity: 1;
 }

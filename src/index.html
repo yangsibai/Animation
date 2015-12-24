@@ -15,6 +15,7 @@
       width: 200px;
       height: 300px;
       margin: auto;
+      overflow: hidden;
     }
 
     .stage-container .stage .one,
@@ -45,7 +46,7 @@
   <script src="lib.js"></script>
 </head>
 <body>
-<div id="container" class="stage-container">
+<div id="container" class="stage-container animation-stage-container">
   <div class="animation-stage stage">
     <div id="one" class="one">1</div>
     <div id="two" class="two">2</div>
@@ -81,30 +82,25 @@
   </div>
 </div>
 <script>
-  var btns = document.getElementsByTagName('button');
   var container = document.getElementById("container");
   var one = document.getElementById("one");
   var two = document.getElementById("two");
-//  var animation = new Animation({
-//    container: container,
-//    one: one,
-//    two: two,
-//    onStart: function () {
-//
-//    },
-//    onEnd: function () {
-////      this.reset();
-//      console.log('it is end');
-//    }
-//  });
   function onClick(e) {
     var ani = e.target.dataset.ani;
-    if (ani) {
-      animation.start(ani);
-    } else {
-      animation.reset();
-    }
+    animate({
+      container: container,
+      one: one,
+      two: two,
+      animate: ani,
+      onStart: function () {
+        console.log('animate start');
+      },
+      onEnd: function () {
+        console.log('animate end');
+      }
+    });
   }
+  var btns = document.getElementsByTagName('button');
   for (var i = 0; i < btns.length; i++) {
     btns[i].addEventListener('click', onClick);
   }
