@@ -53,7 +53,6 @@
   </div>
 </div>
 <div class="btns">
-  <button>Reset</button>
   <div>
     <h4>Slide</h4>
     <button data-ani="slide-left">left</button>
@@ -85,20 +84,18 @@
   var container = document.getElementById("container");
   var one = document.getElementById("one");
   var two = document.getElementById("two");
+  var animation = new Animation({
+    container: container,
+    onStart: function () {
+      console.log('start');
+    },
+    onEnd: function () {
+      console.log('end');
+    }
+  });
   function onClick(e) {
     var ani = e.target.dataset.ani;
-    animate({
-      container: container,
-      one: one,
-      two: two,
-      animate: ani,
-      onStart: function () {
-        console.log('animate start');
-      },
-      onEnd: function () {
-        console.log('animate end');
-      }
-    });
+    animation.animate(ani);
   }
   var btns = document.getElementsByTagName('button');
   for (var i = 0; i < btns.length; i++) {

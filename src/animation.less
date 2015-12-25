@@ -8,74 +8,74 @@
         height: 100%;
         left: 0;
         top: 0;
-        .animation-card-one, .animation-card-two {
+        .one, .two {
             position: absolute;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
         }
-        .animation-card-one {
+        .one {
             z-index: 1;
         }
-        .animation-card-two {
+        .two {
             z-index: 0;
         }
     }
     &.slide {
         .stage {
-            .animation-card-one, .animation-card-two {
+            .one, .two {
                 transition: transform @animation-time;
             }
-            .animation-card-two {
+            .two {
                 z-index: 2;
             }
         }
     }
     &.slide-left {
         .stage {
-            .animation-card-two {
+            .two {
                 left: 100%;
             }
         }
         &.start {
-            .animation-card-two {
+            .two {
                 transform: translateX(-100%);
             }
         }
     }
     &.slide-right {
         .stage {
-            .animation-card-two {
+            .two {
                 left: -100%;
             }
         }
         &.start {
-            .animation-card-two {
+            .two {
                 transform: translateX(100%);
             }
         }
     }
     &.slide-up {
         .stage {
-            .animation-card-two {
+            .two {
                 top: 100%;
             }
         }
         &.start {
-            .animation-card-two {
+            .two {
                 transform: translateY(-100%);
             }
         }
     }
     &.slide-down {
         .stage {
-            .animation-card-two {
+            .two {
                 top: -100%;
             }
         }
         &.start {
-            .animation-card-two {
+            .two {
                 transform: translateY(100%);
             }
         }
@@ -87,7 +87,7 @@
     }
     &.push-left {
         .stage {
-            .animation-card-two {
+            .two {
                 left: 100%;
             }
         }
@@ -97,7 +97,7 @@
     }
     &.push-right {
         .stage {
-            .animation-card-two {
+            .two {
                 left: -100%;
             }
         }
@@ -107,7 +107,7 @@
     }
     &.push-up {
         .stage {
-            .animation-card-two {
+            .two {
                 top: 100%;
             }
         }
@@ -117,7 +117,7 @@
     }
     &.push-down {
         .stage {
-            .animation-card-two {
+            .two {
                 top: -100%;
             }
         }
@@ -131,12 +131,12 @@
             transform-style: preserve-3d;
             transition: transform @animation-time;
         }
-        .animation-card-one, .animation-card-two {
+        .one, .two {
             backface-visibility: hidden;
         }
     }
     &.flip-left {
-        .animation-card-two {
+        .two {
             transform: rotateY(180deg);
         }
         &.start .stage {
@@ -144,7 +144,7 @@
         }
     }
     &.flip-right {
-        .animation-card-two {
+        .two {
             transform: rotateY(180deg);
         }
         &.start .stage {
@@ -152,7 +152,7 @@
         }
     }
     &.flip-up {
-        .animation-card-two {
+        .two {
             transform: rotateX(180deg);
         }
         &.start .stage {
@@ -160,7 +160,7 @@
         }
     }
     &.flip-down {
-        .animation-card-two {
+        .two {
             transform: rotateX(180deg);
         }
         &.start .stage {
@@ -169,42 +169,42 @@
     }
     &.fade {
         .stage {
-            .animation-card-one, .animation-card-two {
+            .one, .two {
                 transition: opacity @animation-time;
             }
-            .animation-card-one {
+            .one {
                 opacity: 1;
             }
-            .animation-card-two {
+            .two {
                 opacity: 0;
             }
         }
         &.start {
-            .animation-card-one {
+            .one {
                 opacity: 0;
             }
-            .animation-card-two {
+            .two {
                 opacity: 1;
             }
         }
     }
     &.none {
         .stage {
-            .animation-card-one, .animation-card-two {
+            .one, .two {
                 transition: opacity @animation-time;
             }
-            .animation-card-one {
+            .one {
                 opacity: 1;
             }
-            .animation-card-two {
+            .two {
                 opacity: 0;
             }
         }
         &.start {
-            .animation-card-one {
+            .one {
                 opacity: 0;
             }
-            .animation-card-two {
+            .two {
                 opacity: 1;
             }
         }

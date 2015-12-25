@@ -61,55 +61,60 @@
         }
     }
 
-    var CONTAINER_CLASS_NAME = 'animation-stage-container';
     var ANIMATION_START_CLASS_NAME = 'start';
-    var CARD_ONE_CLASS_NAME = 'animation-card-one';
-    var CARD_TWO_CLASS_NAME = 'animation-card-two';
     var TRANSITION_END_NAME = transitionEndEventName();
 
-    /**
-     *
-     * @param options
-     */
-    function animate(options) {
-        var container = options.container;
-        var one = options.one;
-        var two = options.two;
-        var onStart = options.onStart;
-        var onEnd = options.onEnd;
-        var animateName = options.animate;
-        addClass(container, CONTAINER_CLASS_NAME);
-        addClass(one, CARD_ONE_CLASS_NAME);
-        addClass(two, CARD_TWO_CLASS_NAME);
+    function getClassNames(animateName) {
+        var classNames = [animateName];
         var prefixClass = animateName.split('-').length > 0 ? animateName.split('-')[0] : '';
         if (prefixClass) {
-            addClass(container, prefixClass);
+            classNames.unshift(prefixClass);
         }
-        addClass(container, animateName);
-
-        var onTransitionEnd = function () {
-            container.removeEventListener(TRANSITION_END_NAME, onTransitionEnd);
-            removeClass(container, CONTAINER_CLASS_NAME);
-            removeClass(one, CARD_ONE_CLASS_NAME);
-            removeClass(two, CARD_TWO_CLASS_NAME);
-            if (prefixClass) {
-                removeClass(container, prefixClass);
-            }
-            removeClass(container, animateName);
-            removeClass(container, ANIMATION_START_CLASS_NAME);
-            onEnd();
-        };
-
-        container.addEventListener(TRANSITION_END_NAME, onTransitionEnd, false);
-        window.requestAnimationFrame(function () {
-            onStart();
-            addClass(container, ANIMATION_START_CLASS_NAME);
-        });
+        return classNames;
     }
 
+    function Animation(options) {
+        this.container = options.container;
+        this.onStart = options.onStart;
+        this.onEnd = options.onEnd;
+        this.addedClassNames = [];
+        this.animating = false;
+        this.onTransitionEnd = function () {
+            this.animating = false;
+            this.reset();
+            this.onEnd();
+        }.bind(this);
+    }
+
+    Animation.prototype.animate = function (animateName) {
+        if (this.animating) {
+            console.log('is animating');
+            this.reset(); // if is animating, reset to initial state
+        }
+        this.onStart();
+        this.animating = true;
+        this.container.addEventListener(TRANSITION_END_NAME, this.onTransitionEnd);
+        this.addedClassNames = getClassNames(animateName);
+        for (var i = 0; i < this.addedClassNames.length; i++) {
+            addClass(this.container, this.addedClassNames[i]);
+        }
+        window.requestAnimationFrame(function () {
+            addClass(this.container, ANIMATION_START_CLASS_NAME);
+        }.bind(this));
+    };
+
+    Animation.prototype.reset = function () {
+        removeClass(this.container, ANIMATION_START_CLASS_NAME);
+        this.container.removeEventListener(TRANSITION_END_NAME, this.onTransitionEnd);
+        for (var i = 0; i < this.addedClassNames.length; i++) {
+            removeClass(this.container, this.addedClassNames[i]);
+        }
+        removeClass(this.container, ANIMATION_START_CLASS_NAME);
+    };
+
     if (global.require && global.module.exports) {
-        global.module.exports.animate = animate;
+        global.module.exports = Animation;
     } else {
-        global.animate = animate;
+        global.Animation = Animation;
     }
 }(this));
