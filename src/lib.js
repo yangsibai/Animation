@@ -99,7 +99,9 @@
             addClass(this.container, this.addedClassNames[i]);
         }
         window.requestAnimationFrame(function () {
-            addClass(this.container, ANIMATION_START_CLASS_NAME);
+            window.requestAnimationFrame(function () { //TRICK: this is a trick, use the next frame after the next frame to ensure transition
+                addClass(this.container, ANIMATION_START_CLASS_NAME);
+            }.bind(this));
         }.bind(this));
     };
 
@@ -112,8 +114,8 @@
         removeClass(this.container, ANIMATION_START_CLASS_NAME);
     };
 
-    if (global.require && global.module.exports) {
-        global.module.exports = Animation;
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = Animation;
     } else {
         global.Animation = Animation;
     }
