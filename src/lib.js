@@ -1,117 +1,200 @@
 ;(function (global) {
-    function transitionEndEventName() {
-        var i,
-            undefined,
-            el = document.createElement('div'),
-            transitions = {
-                'transition': 'transitionend',
-                'OTransition': 'otransitionend',  // oTransitionEnd in very old Opera
-                'MozTransition': 'transitionend',
-                'WebkitTransition': 'webkitTransitionEnd'
-            };
-
-        for (i in transitions) {
-            if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
-                return transitions[i];
+    'use strict';
+    var AnimationConfig = {
+        'slide-left': {
+            pre: {two: {'z-index': 2, x: '100%'}},
+            trans: {two: {x: 0}}
+        },
+        'slide-right': {
+            pre: {two: {'z-index': 2, x: '-100%'}},
+            trans: {two: {x: 0}}
+        },
+        'slide-up': {
+            pre: {two: {'z-index': 2, y: '100%'}},
+            trans: {two: {y: 0}}
+        },
+        'slide-down': {
+            pre: {two: {'z-index': 2, y: '-100%'}},
+            trans: {two: {y: 0}}
+        },
+        'push-left': {
+            pre: {two: {x: '100%'}},
+            trans: {stage: {x: '-100%'}}
+        },
+        'push-right': {
+            pre: {two: {x: '-100%'}},
+            trans: {stage: {x: '100%'}}
+        },
+        'push-up': {
+            pre: {two: {y: '100%'}},
+            trans: {stage: {y: '-100%'}}
+        },
+        'push-down': {
+            pre: {two: {y: '-100%'}},
+            trans: {stage: {y: '100%'}}
+        },
+        'flip-left': {
+            pre: {
+                stage: {'transform-style': 'preserve-3d'},
+                one: {'backface-visibility': 'hidden'},
+                two: {'backface-visibility': 'hidden', rotateY: '180deg'}
+            },
+            trans: {
+                perspective: 800,
+                stage: {rotateY: '-180deg'}
             }
+        },
+        'flip-right': {
+            pre: {
+                stage: {'transform-style': 'preserve-3d'},
+                one: {'backface-visibility': 'hidden'},
+                two: {'backface-visibility': 'hidden', rotateY: '180deg'}
+            },
+            trans: {
+                stage: {'perspective': 800, rotateY: '180deg'}
+            }
+        },
+        'flip-up': {
+            pre: {
+                stage: {'transform-style': 'preserve-3d'},
+                one: {'backface-visibility': 'hidden'},
+                two: {'backface-visibility': 'hidden', rotateX: '180deg'}
+            },
+            trans: {
+                stage: {'perspective': 800, rotateX: '180deg'}
+            }
+        },
+        'flip-down': {
+            pre: {
+                stage: {'transform-style': 'preserve-3d'},
+                one: {'backface-visibility': 'hidden'},
+                two: {'backface-visibility': 'hidden', rotateX: '180deg'}
+            },
+            trans: {
+                stage: {'perspective': 800, rotateX: '-180deg'}
+            }
+        },
+        'zoom-out': {
+            pre: {two: {opacity: 0}},
+            trans: {
+                one: {width: 0, height: 0, opacity: 0, x: '50%', y: '50%'},
+                two: {opacity: 1}
+            }
+        },
+        'zoom-in': {
+            pre: {
+                two: {width: 0, height: 0, x: '50%', y: '50%'}
+            },
+            trans: {
+                one: {duration: 500, opacity: 0},
+                two: {width: '100%', height: '100%', x: 0, y: 0}
+            }
+        },
+        'fade': {
+            pre: {
+                one: {opacity: 1},
+                two: {opacity: 0}
+            },
+            trans: {
+                one: {opacity: 0},
+                two: {opacity: 1}
+            }
+        },
+        'none': {
+            pre: {two: {opacity: 0.8, 'z-index': 2}},
+            trans: {two: {opacity: 1}}
         }
-
-        //TODO: throw 'TransitionEnd event is not supported in this browser';
-    }
-
-    /**
-     * detect if element has a class
-     * @param el
-     * @param className
-     * @returns {boolean}
-     */
-    function hasClass(el, className) {
-        if (el.classList) {
-            return el.classList.contains(className);
-        } else {
-            return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
-        }
-    }
-
-    /**
-     * add class to an element
-     * @param el
-     * @param className
-     */
-    function addClass(el, className) {
-        if (el.classList) {
-            el.classList.add(className);
-        } else if (!hasClass(el, className)) {
-            el.className += " " + className;
-        }
-    }
-
-    /**
-     * remove class of an element
-     * @param el
-     * @param className
-     */
-    function removeClass(el, className) {
-        if (el.classList) {
-            el.classList.remove(className);
-        }
-        else if (hasClass(el, className)) {
-            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-            el.className = el.className.replace(reg, ' ');
-        }
-    }
-
-    var ANIMATION_START_CLASS_NAME = 'start';
-    var TRANSITION_END_NAME = transitionEndEventName();
-
-    function getClassNames(animateName) {
-        var classNames = [animateName];
-        var prefixClass = animateName.split('-').length > 0 ? animateName.split('-')[0] : '';
-        if (prefixClass) {
-            classNames.unshift(prefixClass);
-        }
-        return classNames;
-    }
+    };
 
     function Animation(options) {
         this.container = options.container;
         this.onStart = options.onStart;
         this.onEnd = options.onEnd;
-        this.addedClassNames = [];
         this.animating = false;
-        this.onTransitionEnd = function () {
-            this.animating = false;
-            this.reset();
-            this.onEnd();
-        }.bind(this);
+
+        var $container = $(this.container);
+        this.$stage = $container.find('.stage');
+        this.$one = $container.find('.one');
+        this.$two = $container.find('.two');
     }
 
-    Animation.prototype.animate = function (animateName) {
+    Animation.prototype.animate = function (animateName, durationMs) {
         if (this.animating) {
-            console.log('is animating');
-            this.reset(); // if is animating, reset to initial state
+            return;
         }
-        this.onStart();
-        this.animating = true;
-        this.container.addEventListener(TRANSITION_END_NAME, this.onTransitionEnd);
-        this.addedClassNames = getClassNames(animateName);
-        for (var i = 0; i < this.addedClassNames.length; i++) {
-            addClass(this.container, this.addedClassNames[i]);
+        var $stage, $one, $two,
+            config, preSettings, trans,
+            createOnComplete, self, calledTimes,
+            duration, timing;
+
+        $stage = this.$stage;
+        $one = this.$one;
+        $two = this.$two;
+
+        config = AnimationConfig[animateName];
+
+        duration = durationMs || 500;
+        timing = 'ease';
+
+        this.cachedStyle = {
+            stage: $stage.attr('style') || '',
+            one: $one.attr('style') || '',
+            two: $two.attr('style') || ''
+        };
+
+        self = this;
+        calledTimes = 0;
+        createOnComplete = function () {
+            calledTimes++;
+            return function () {
+                calledTimes--;
+                if (calledTimes === 0) {
+                    self.reset();
+                    self.onEnd();
+                }
+            }
+        };
+
+        if (config) {
+            this.onStart();
+            this.animating = true;
+            preSettings = config.pre;
+            trans = config.trans;
+            if (preSettings) {
+                preSettings.stage && $stage.css(preSettings.stage);
+                preSettings.one && $one.css(preSettings.one);
+                preSettings.two && $two.css(preSettings.two);
+            }
+            trans.stage && $stage.transition(trans.stage, duration, timing, createOnComplete());
+            trans.one && $one.transition(trans.one, duration, timing, createOnComplete());
+            trans.two && $two.transition(trans.two, duration, timing, createOnComplete());
         }
-        window.requestAnimationFrame(function () {
-            window.requestAnimationFrame(function () { //TRICK: this is a trick, use the next frame after the next frame to ensure transition
-                addClass(this.container, ANIMATION_START_CLASS_NAME);
-            }.bind(this));
-        }.bind(this));
     };
 
     Animation.prototype.reset = function () {
-        removeClass(this.container, ANIMATION_START_CLASS_NAME);
-        this.container.removeEventListener(TRANSITION_END_NAME, this.onTransitionEnd);
-        for (var i = 0; i < this.addedClassNames.length; i++) {
-            removeClass(this.container, this.addedClassNames[i]);
-        }
-        removeClass(this.container, ANIMATION_START_CLASS_NAME);
+        this.animating = false;
+        var $stage, $one, $two, styleCached;
+
+        styleCached = this.cachedStyle;
+
+        $stage = this.$stage;
+        $one = this.$one;
+        $two = this.$two;
+
+        // there is a bug in transit, must reset these properties, should make an issue
+        var resetCssProperties = {
+            x: 0,
+            y: 0,
+            rotateX: 0,
+            rotateY: 0
+        };
+        $one.css(resetCssProperties);
+        $two.css(resetCssProperties);
+        $stage.css(resetCssProperties);
+
+        styleCached.stage ? $stage.attr('style', styleCached.stage) : $stage.removeAttr('style');
+        styleCached.one ? $one.attr('style', styleCached.one) : $one.removeAttr('style');
+        styleCached.two ? $two.attr('style', styleCached.two) : $two.removeAttr('style');
     };
 
     if (typeof module !== 'undefined' && module.exports) {
