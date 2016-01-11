@@ -77,17 +77,17 @@
         'zoom-out': {
             pre: {two: {opacity: 0}},
             trans: {
-                one: {width: 0, height: 0, opacity: 0, x: '50%', y: '50%'},
+                one: {width: 0, height: 0, opacity: 0, left: '50%', top: '50%'},
                 two: {opacity: 1}
             }
         },
         'zoom-in': {
             pre: {
-                two: {width: 0, height: 0, x: '50%', y: '50%'}
+                two: {width: 0, height: 0, left: '50%', top: '50%'}
             },
             trans: {
                 one: {duration: 500, opacity: 0},
-                two: {width: '100%', height: '100%', x: 0, y: 0}
+                two: {width: '100%', height: '100%', left: 0, top: 0}
             }
         },
         'fade': {
@@ -112,6 +112,7 @@
         this.onEnd = options.onEnd;
         this.animating = false;
 
+        this.cachedStyle = {};
         var $container = $(this.container);
         this.$stage = $container.find('.stage');
         this.$one = $container.find('.one');
