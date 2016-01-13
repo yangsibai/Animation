@@ -119,7 +119,7 @@
         this.$two = $container.find('.two');
     }
 
-    Animation.prototype.animate = function (animateName, durationMs) {
+    Animation.prototype.animate = function (animateName, durationMs, timingFunc) {
         if (this.animating) {
             return;
         }
@@ -135,7 +135,7 @@
         config = AnimationConfig[animateName];
 
         duration = durationMs || 500;
-        timing = 'ease';
+        timing = timingFunc || 'ease';
 
         this.cachedStyle = {
             stage: $stage.attr('style') || '',
